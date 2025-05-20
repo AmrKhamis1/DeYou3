@@ -117,7 +117,8 @@ To add new models:
     DeYou3logo2.png # Application logo
 ```
 
-## Next Steps for Enhancement
+![image](https://github.com/user-attachments/assets/fc6cb2cc-b845-4ed1-8ec1-eec05d84a93d)
+
 
 - Add support for multiple design placements on a single model
 - Implement save/load functionality for designs
