@@ -1,0 +1,73 @@
+#root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.scenes {
+  background-color: #1e1e1e;
+  padding: 10px;
+  padding-top: 10vh;
+  height: 95vh;
+  width: 70vw;
+}
+.head-btn-cont {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 20vw;
+  height: 10vh;
+  margin: 5px;
+}
+.head-btn {
+  background-color: #333;
+  color: #fff;
+  border: 1px;
+  font-weight: 500;
+  font-family: "Maven Pro", sans-serif;
+  border-color: #2879fe;
+  padding: 0.5rem;
+  width: 70px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.head-btn:hover {
+  border-style: solid;
+  background-color: #444;
+  border-color: #2879fe;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
+}
+.head-btn:focus {
+  border-style: solid;
+  background-color: #444;
+  border-color: #2879fe;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
+}
+.uvWrapping {
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: #2879fe;
+}
+.viewPort {
+  width: 100%;
+  height: 100%;
+}
+canvas {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+}
