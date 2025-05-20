@@ -76,6 +76,8 @@ To add new models:
 5. **Place Design**: Drag, scale, and rotate the design on the UV map
 6. **Apply to Model**: Click "Apply to Model" to update the 3D view
 7. **View Result**: Switch back to "View" to see the final result
+![image](https://github.com/user-attachments/assets/fc6cb2cc-b845-4ed1-8ec1-eec05d84a93d)
+![image](https://github.com/user-attachments/assets/fe475700-8f3b-4c16-863c-23e1b1777964)
 
 ## Requirements
 
@@ -117,8 +119,9 @@ To add new models:
     DeYou3logo2.png # Application logo
 ```
 
-![image](https://github.com/user-attachments/assets/fc6cb2cc-b845-4ed1-8ec1-eec05d84a93d)
 
+![image](https://github.com/user-attachments/assets/8157a4b6-ed83-406a-a95d-fd76c38b3954)
+![image](https://github.com/user-attachments/assets/2a9d8e0e-e76e-4161-b301-07bb9cf8b158)
 
 - Add support for multiple design placements on a single model
 - Implement save/load functionality for designs
