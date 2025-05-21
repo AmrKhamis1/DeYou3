@@ -9,13 +9,16 @@ export default function Html({
   roughness: initialRoughness = 0.5,
   metalness: initialMetalness = 0.5,
   texture: initialTexture = 0.5,
+  textureType: initialTextureType = "cotton",
 }) {
   const [cameraPosition, setCameraPosition] = useState(initialCameraPosition);
   const [roughness, setRoughness] = useState(initialRoughness);
   const [metalness, setMetalness] = useState(initialMetalness);
   const [texture, setTexture] = useState(initialTexture);
   const [modelType, setModelType] = useState("t-shirt");
+  const [textureType, setTextureType] = useState(initialTextureType);
   const [color, setColor] = useState("#ffffff");
+  const [bgColor, setBgColor] = useState("#ffffff");
 
   const customModelInputRef = useRef(null);
   const designImageRef = useRef(null);
@@ -43,6 +46,14 @@ export default function Html({
           ? "football"
           : "t-shirt",
     });
+  }
+
+  // Handle texture type selection
+  function handleTextureType(textureValue) {
+    setTextureType(textureValue);
+
+    // Update parent component
+    onSettingsChange({ textureType: textureValue });
   }
 
   // Handle camera position change
@@ -77,7 +88,10 @@ export default function Html({
     setColor(colorValue);
     onSettingsChange({ color: colorValue });
   }
-
+  function handleBgColorChange(bgColorValue) {
+    setBgColor(bgColorValue);
+    onSettingsChange({ bgColor: bgColorValue });
+  }
   // Handle design image upload
   function handleDesignUpload(event) {
     const file = event.target.files[0];
@@ -138,15 +152,36 @@ export default function Html({
           onChange={handleCustomModelUpload}
         />
 
-        <label htmlFor="color">Color:</label>
-        <input
-          type="color"
-          name="color"
-          id="color"
-          value={color}
-          onChange={(e) => handleColorChange(e.target.value)}
-        />
-
+        <label htmlFor="textureType">Select Texture Type:</label>
+        <select
+          name="textureType"
+          id="textureType"
+          onChange={(event) => handleTextureType(event.target.value)}
+          value={textureType}
+        >
+          <option value="cotton">Cotton</option>
+          <option value="polyester">Polyester</option>
+          <option value="wool">Wool</option>
+          <option value="denim">Denim</option>
+        </select>
+        <div className="colors">
+          <label htmlFor="color">Color:</label>
+          <input
+            type="color"
+            name="color"
+            id="color"
+            value={color}
+            onChange={(e) => handleColorChange(e.target.value)}
+          />
+          <label htmlFor="bgColor">Background:</label>
+          <input
+            type="color"
+            name="bgColor"
+            id="bgColor"
+            value={bgColor}
+            onChange={(e) => handleBgColorChange(e.target.value)}
+          />
+        </div>
         <label htmlFor="camera-positions">Camera Position:</label>
         <div className="cameta-positions">
           <button

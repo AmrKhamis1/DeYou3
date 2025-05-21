@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import Loader from "./Loader";
@@ -9,9 +9,40 @@ import "./CSS/index.css";
 import "./CSS/uvEditor.css";
 import Html from "./Html.jsx";
 
+// New component to handle taking screenshots
+const ScreenshotHandler = ({ screenshotRef }) => {
+  const { gl, scene, camera } = useThree();
+
+  useEffect(() => {
+    if (screenshotRef) {
+      screenshotRef.current = () => {
+        // Render the scene
+        gl.render(scene, camera);
+
+        // Get the canvas element and create a download link
+        const canvas = gl.domElement;
+        const dataURL = canvas.toDataURL("image/png");
+
+        // Create a link element and trigger download
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = `tshirt-design-${new Date()
+          .toISOString()
+          .slice(0, 10)}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+    }
+  }, [gl, scene, camera, screenshotRef]);
+
+  return null;
+};
+
 export default function App() {
   const uvPort = useRef(null);
   const viewPort = useRef(null);
+  const takeScreenshotRef = useRef(null);
 
   // Model state
   const [modelType, setModelType] = useState("t-shirt");
@@ -20,11 +51,20 @@ export default function App() {
   const [roughness, setRoughness] = useState(0.5);
   const [metalness, setMetalness] = useState(0.5);
   const [texture, setTexture] = useState(0.5);
+  const [textureType, setTextureType] = useState("cotton");
   const [designTexture, setDesignTexture] = useState(null);
   const [color, setColor] = useState("#ffffff");
+  const [bgColor, setBgColor] = useState("#ffffff");
 
   // Load status
   const [loaded, setLoaded] = useState(false);
+
+  // Function to take screenshot
+  const handleScreenshot = () => {
+    if (takeScreenshotRef.current) {
+      takeScreenshotRef.current();
+    }
+  };
 
   // Switch between view and UV modes
   function handleView(view) {
@@ -55,7 +95,10 @@ export default function App() {
     if (settings.roughness !== undefined) setRoughness(settings.roughness);
     if (settings.metalness !== undefined) setMetalness(settings.metalness);
     if (settings.texture !== undefined) setTexture(settings.texture);
+    if (settings.textureType) setTextureType(settings.textureType);
     if (settings.color) setColor(settings.color);
+    if (settings.bgColor) setBgColor(settings.bgColor);
+
     if (settings.designImage) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -89,6 +132,13 @@ export default function App() {
             onTextureUpdate={handleTextureUpdate}
           />
         </div>
+        <button
+          title="download screen shot"
+          className="icon-screenshot"
+          onClick={handleScreenshot}
+        >
+          <i className="fa fa-download"></i>
+        </button>
         <div ref={viewPort} className="viewPort">
           <Canvas
             style={{
@@ -102,12 +152,14 @@ export default function App() {
               outputEncoding: THREE.sRGBEncoding,
               shadowMapType: THREE.PCFSoftShadowMap,
               antialias: true,
+              preserveDrawingBuffer: true, // Important for screenshots
             }}
             camera={{
               fov: 50,
             }}
           >
-            <color attach="background" args={["#eee"]} />
+            <ScreenshotHandler screenshotRef={takeScreenshotRef} />
+            <color attach="background" args={[bgColor]} />
             <OrbitControls />
             <ambientLight intensity={0.5} />
             <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
@@ -116,6 +168,7 @@ export default function App() {
               roughness={roughness}
               metalness={metalness}
               texture={texture}
+              textureType={textureType}
               designImage={designTexture}
               cameraPosition={cameraPosition}
               modelType={modelType}
@@ -131,6 +184,7 @@ export default function App() {
         roughness={roughness}
         metalness={metalness}
         texture={texture}
+        textureType={textureType}
       />
       {/* Contact section */}
       <div className="footer">
@@ -143,7 +197,7 @@ export default function App() {
             className="contact-link"
             aria-label="Email Contact"
           >
-            Contact Me <i className="fas fa-envelope"></i>
+            Contact Me
           </a>
         </div>
       </div>

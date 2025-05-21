@@ -71,3 +71,20 @@ canvas {
   height: 100%;
   pointer-events: all;
 }
+.icon-screenshot {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  margin: 10px;
+  background-color: #1e1e1e7b;
+  border: none;
+  border-radius: 50%;
+  color: azure;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.icon-screenshot:hover {
+  background-color: #2879fe;
+  color: black;
+}

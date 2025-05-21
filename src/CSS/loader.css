@@ -17,17 +17,17 @@
 .loading-text {
   text-shadow: 0 0 10px #2879fe;
   font-family: "Poppins", sans-serif;
-  font-weight: 500;
+  font-weight: 900;
   font-size: 30px;
 }
 
 .logo {
-  width: 120px;
+  width: 420px;
   height: auto;
 }
 /* Apply glow effect to logo */
 .logo {
-  width: 250px;
+  width: 320px;
   height: auto;
   margin-bottom: 70px;
   color: #777bff;

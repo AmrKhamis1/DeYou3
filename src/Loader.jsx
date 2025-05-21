@@ -20,18 +20,17 @@ export default function Loader({ onLoaded }) {
         return oldProgress + Math.random() * 10;
       });
     }, 300);
-
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    gsap.fromTo(
-      logoRef.current,
-      { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 1 }
-    );
-    gsap.fromTo(textRef.current, { opacity: 0 }, { opacity: 1, duration: 1 });
-  }, []);
+  // useEffect(() => {
+  //   gsap.fromTo(
+  //     logoRef.current,
+  //     { scale: 0, opacity: 0 },
+  //     { scale: 1, opacity: 1, duration: 1 }
+  //   );
+  //   gsap.fromTo(textRef.current, { opacity: 0 }, { opacity: 1, duration: 1 });
+  // }, []);
 
   useEffect(() => {
     if (progressBarRef.current) {
@@ -46,7 +45,6 @@ export default function Loader({ onLoaded }) {
   useEffect(() => {
     if (progress >= 100) {
       setIsLoading(false);
-
       setTimeout(onLoaded, 1500);
     }
   }, [progress, onLoaded]);
@@ -54,13 +52,23 @@ export default function Loader({ onLoaded }) {
   return (
     isLoading && (
       <div className="loading-container" ref={loaderRef}>
+        <img
+          ref={logoRef}
+          src="./temp/DeYou3logo2.png"
+          className="logo"
+          loop
+          autoPlay
+          muted
+          playsInline
+        />
+
         {/* Loading Bar */}
         <div className="loading-bar-container">
           <div className="loading-bar" ref={progressBarRef} />
         </div>
-        {/* Loading Percentage */}
+        {/* Loading Text (without percentage) */}
         <p className="loading-text" ref={textRef}>
-          Loading {Math.round(progress)}%
+          Loading...
         </p>
       </div>
     )

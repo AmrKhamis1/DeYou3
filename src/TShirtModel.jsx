@@ -12,6 +12,7 @@ export default function TShirtModel({
   designImage = null,
   cameraPosition = "front",
   modelType = "t-shirt",
+  textureType = "cotton",
   customModelUrl = null,
 }) {
   const groupRef = useRef();
